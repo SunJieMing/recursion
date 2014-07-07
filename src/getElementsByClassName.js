@@ -5,5 +5,33 @@
 
 // But instead we're going to implement it from scratch:
 var getElementsByClassName = function(className){
-  // your code here
-};
+
+  var result = [];
+
+  var inspectNode = function (node) {
+
+    if(!node.classList){return;}
+
+    if(node.classList.length > 0) {
+
+      for(var i = 0; i < node.classList.length; i++){
+        
+        if(node.classList[i] === className){
+          result.push(node);
+        }
+      }
+    }
+
+    if(node.childNodes.length > 0) {
+
+      for (var i = 0; i < node.childNodes.length; i++) {
+        inspectNode(node.childNodes[i]);
+      }
+    }
+  }
+
+  inspectNode(document.body);
+
+  return result;
+
+}
